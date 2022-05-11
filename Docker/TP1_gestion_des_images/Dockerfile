@@ -1,8 +1,11 @@
 FROM ubuntu:18.04
-MAINTAINER : lucroz94 (lucroz@lucroz.fr)
+MAINTAINER : williams-ahile (williams14.ahile@gmail.com)
 
 RUN apt-get update
-RUN apt-get install -y nginx
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y nginx git
 EXPOSE 80
-ADD heroBiz/ /var/www/html/
+
+RUN rm -Rf /var/www/html/*
+RUN git clone https://github.com/MrAhile/heroBiz.git /var/www/html/
+#ADD heroBiz/ /var/www/html/
 ENTRYPOINT ["/usr/sbin/nginx", "-g", "daemon off;"]
