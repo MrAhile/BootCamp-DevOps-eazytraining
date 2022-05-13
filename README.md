@@ -8,11 +8,11 @@ Il prendra en compte tus mes travaux pratiques pendant la formation et certainem
 
 # 📦 Modules de Formation 📚
 
-📆 Premier Mois : Micro-services avec Docker  🐋 et Kubernetes 🛞 
+📆 Premier Mois : Micro-services avec Docker 🐳 et Kubernetes 🕸 
 
-📅 Deuxième Mois : Pipeline CI/CD avec Jenkins / Gitlab CI
+📅 Deuxième Mois : Pipeline CI/CD ♾️ avec Jenkins 😌 / Gitlab CI 🦊
 
-📅 Troisième Mois : Automatisation et IaC (Infrastructure as Code) avec Ansible ⚙️ et Terraform
+📅 Troisième Mois : Automatisation 🕹 et IaC (Infrastructure as Code) ⌨️ avec Ansible 🅰️ et Terraform 💠
 
 🗃 Autres outils : Vagrant, VirtualBox, Git et bien d'autres encore feront partie de ce camp d'entraînement.
 
