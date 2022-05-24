@@ -1,1 +1,1 @@
-# Les bases de Kubernates !
+# Les bases de Kubernetes !
