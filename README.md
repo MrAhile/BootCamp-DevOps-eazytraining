@@ -2,7 +2,7 @@
 
 Bienvenue sur ce repository qui retrace tout ce j'ai appris dans ce Bootcamp DevOps de 3 mois chez eazytraining !
 
-Il prendra en compte tus mes travaux pratiques pendant la formation et certainement TP personnel ✌🏾
+Il prendra en compte tous mes travaux pratiques pendant la formation et certainement TP personnel ✌🏾
 
 
 
