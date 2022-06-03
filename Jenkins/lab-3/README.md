@@ -4,7 +4,7 @@
 ![alt text](https://github.com/MrAhile/BootCamp-DevOps-eazytraining/blob/main/Jenkins/lab-3/TP3.png)
 
 
-> TP3 : Done ✅ - correction
+# Lab-3: Correction 
 
 ![alt text](https://github.com/MrAhile/BootCamp-DevOps-eazytraining/blob/main/Jenkins/lab-3/c1.png)
 
@@ -22,3 +22,5 @@
 ![alt text](https://github.com/MrAhile/BootCamp-DevOps-eazytraining/blob/main/Jenkins/lab-3/c6.png)
 
 ![alt text](https://github.com/MrAhile/BootCamp-DevOps-eazytraining/blob/main/Jenkins/lab-3/c7.png)
+
+> TP3 : Done ✅ - correction
