@@ -1,4 +1,4 @@
-# 🎉 BootCamp-DevOps-eazytraining (Mai 2022 - Juillet 2022) ✌🏾
+# 🎉 BootCamp-DevOps-eazytraining (Mai - Juillet 2022) ✌🏾
 
 edited : 07/05/2022
 
