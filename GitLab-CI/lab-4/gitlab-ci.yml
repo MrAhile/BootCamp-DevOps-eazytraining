@@ -1,0 +1,71 @@
+image: docker:latest
+services:
+  - name: docker:dind
+    alias: docker
+stages:
+  - Build images
+  - Test acceptation
+  - Release image
+  - Deploy staging
+  - Deploy prod
+
+Build images:
+  # Use the official docker image.
+  stage: Build images
+  script:
+    - docker build -t alpinehelloworld .
+    - docker save alpinehelloworld > alpinehelloworld.tar
+  artifacts:
+    paths:
+      - "alpinehelloworld.tar"
+
+Test acceptation:
+  # Use the official docker image.
+  stage: Test acceptation
+  script:
+    - docker load < alpinehelloworld.tar
+    - docker run -d -p 80:5000 -e PORT=5000  --name webapp alpinehelloworld
+    - sleep 10
+    - apk --no-cache add curl
+    - curl http://docker | grep -q "Hello world!"
+    - echo "williams tu es un chef ! c'est propre !"
+
+release image:
+  stage: Release image
+  script:
+    - docker load < alpinehelloworld.tar
+    - docker tag alpinehelloworld "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}"
+    - docker tag alpinehelloworld "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}"
+    - docker push "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+
+deploy staging:
+  stage: Deploy staging
+  environment:
+    name: staging
+    url: https://williams-staging-gitlab.herokuapp.com/
+  only:
+    - master
+  script:
+    - apk --no-cache add npm
+    - npm install -g heroku
+    - heroku container:login
+    - heroku create williams-staging-gitlab || echo "Le projet existe deja, mais on continue"
+    - heroku container:push -a williams-staging-gitlab web
+    - heroku container:release -a williams-staging-gitlab web
+
+deploy prod:
+  stage: Deploy prod
+  environment:
+    name: prod
+    url: https://williams-prod-gitlab.herokuapp.com/
+  only:
+    - master
+  script:
+    - apk --no-cache add npm
+    - npm install -g heroku
+    - heroku container:login
+    - heroku create williams-prod-gitlab || echo "Le projet existe deja, mais on continue "
+    - heroku container:push -a williams-prod-gitlab web
+    - heroku container:release -a williams-prod-gitlab web
