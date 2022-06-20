@@ -1,0 +1,39 @@
+image: docker:latest
+services:
+  - name: docker:dind
+    alias: docker
+stages:
+  - Build images
+  - Test acceptation
+  - Release image
+
+Build images:
+  # Use the official docker image.
+  stage: Build images
+  script:
+    - docker build -t alpinehelloworld .
+    - docker save alpinehelloworld > alpinehelloworld.tar
+  artifacts:
+    paths:
+      - "alpinehelloworld.tar"
+
+Test acceptation:
+  # Use the official docker image.
+  stage: Test acceptation
+  script:
+    - docker load < alpinehelloworld.tar
+    - docker run -d -p 80:5000 -e PORT=5000  --name webapp alpinehelloworld
+    - sleep 10
+    - apk --no-cache add curl
+    - curl http://docker | grep -q "Hello world!"
+    - echo "williams tu es un chef ! c'est propre !"
+
+release image:
+  stage: Release image
+  script:
+    - docker load < alpinehelloworld.tar
+    - docker tag alpinehelloworld "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}"
+    - docker tag alpinehelloworld "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker push "${IMAGE_NAME}:${CI_COMMIT_REF_NAME}"
+    - docker push "${IMAGE_NAME}:${CI_COMMIT_SHORT_SHA}"
